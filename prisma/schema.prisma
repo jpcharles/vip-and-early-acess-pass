@@ -5,12 +5,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Session {
@@ -18,7 +15,7 @@ model Session {
   shop          String
   state         String
   isOnline      Boolean   @default(false)
-  scope         String?
+  scope         String?   @default("")
   expires       DateTime?
   accessToken   String
   userId        BigInt?
@@ -31,71 +28,62 @@ model Session {
   emailVerified Boolean?  @default(false)
 }
 
-// Early Access Pass Models
 model EarlyAccessCampaign {
-  id                String   @id @default(cuid())
-  shop              String
-  name              String
-  description       String?
-  secretKey         String   @unique
-  isActive          Boolean  @default(true)
-  targetType        String   // "product" or "collection"
-  targetId          String   // Shopify product/collection ID
-  
-  // Email marketing integration
-  emailProvider     String?  // "klaviyo" or "omnisend" or null
-  emailApiKey       String?
-  emailListId       String?
-  
-  // Customization
-  backgroundColor   String   @default("#ffffff")
-  textColor         String   @default("#000000")
-  buttonColor       String   @default("#007cba")
-  customMessage     String?
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  
-  signups           EarlyAccessSignup[]
-  
-  @@index([shop])
-  @@index([secretKey])
-}
-
-model EarlyAccessSignup {
-  id              String   @id @default(cuid())
-  campaignId      String
-  email           String
-  firstName       String?
-  lastName        String?
-  phone           String?
-  
-  // Tracking
-  ipAddress       String?
-  userAgent       String?
-  referrer        String?
-  
-  // Email marketing sync status
-  syncedToEmail   Boolean  @default(false)
-  syncedAt        DateTime?
-  emailProvider   String?
-  
-  createdAt       DateTime @default(now())
-  
-  campaign        EarlyAccessCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  
-  @@unique([campaignId, email])
-  @@index([email])
-  @@index([createdAt])
-}
-
-model EmailIntegration {
   id          String   @id @default(cuid())
-  shop        String   @unique
-  provider    String   // "klaviyo" or "omnisend"
-  apiKey      String
+  shop        String
+  name        String
+  description String?
   isActive    Boolean  @default(true)
-  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  
+  // Access control
+  accessType  AccessType @default(PASSWORD)
+  password    String?
+  secretLink  String?   @unique
+  
+  // Product/Collection targeting
+  productIds  String[] // Shopify product IDs
+  collectionIds String[] // Shopify collection IDs
+  
+  // Email integration
+  klaviyoListId String?
+  omnisendListId String?
+  
+  // Analytics
+  totalViews    Int @default(0)
+  totalSignups  Int @default(0)
+  
+  // Relations
+  signups Signup[]
+  
+  @@map("early_access_campaigns")
+}
+
+model Signup {
+  id        String   @id @default(cuid())
+  email     String
+  firstName String?
+  lastName  String?
+  createdAt DateTime @default(now())
+  
+  // Relations
+  campaignId String
+  campaign   EarlyAccessCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  
+  // Email service sync status
+  klaviyoSynced    Boolean @default(false)
+  omnisendSynced   Boolean @default(false)
+  klaviyoContactId String?
+  omnisendContactId String?
+  
+  @@unique([email, campaignId])
+  @@map("signups")
+}
+
+enum AccessType {
+  PASSWORD
+  SECRET_LINK
+  EMAIL_SIGNUP
+  PASSWORD_OR_EMAIL
 }

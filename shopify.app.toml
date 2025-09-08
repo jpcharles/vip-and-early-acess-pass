@@ -1,17 +1,16 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "00d3f91fa22e7c60dd5628eebbe60753"
-name = "VIP-early-access"
-handle = "vip-early-access"
-application_url = "https://cove-fifty-celebration-assured.trycloudflare.com"
+client_id = "da6f5efcd78edf900dfe0ea7535521a8"
+name = "vip-early-access"
+application_url = "https://example.com"
 embedded = true
 
 [build]
-include_config_on_deploy = true
 automatically_update_urls_on_dev = true
+include_config_on_deploy = true
 
 [webhooks]
-api_version = "2025-07"
+api_version = "2025-10"
 
   [[webhooks.subscriptions]]
   topics = [ "app/uninstalled" ]
@@ -23,10 +22,7 @@ api_version = "2025-07"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "read_products,read_product_listings,write_customers,read_customers"
+scopes = "write_products"
 
 [auth]
-redirect_urls = ["https://cove-fifty-celebration-assured.trycloudflare.com/auth/callback", "https://cove-fifty-celebration-assured.trycloudflare.com/auth/shopify/callback", "https://cove-fifty-celebration-assured.trycloudflare.com/api/auth/callback"]
-
-[pos]
-embedded = false
+redirect_urls = [ "https://example.com/api/auth" ]

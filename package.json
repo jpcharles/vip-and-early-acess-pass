@@ -1,10 +1,5 @@
 {
   "name": "vip-early-access",
-  "version": "1.0.0",
-  "description": "VIP Early Access Pass - Create gated product and collection pages with secret links for exclusive customer access",
-  "keywords": ["shopify", "early-access", "vip", "gated-content", "email-marketing", "klaviyo", "omnisend"],
-  "author": "Your Name <your.email@example.com>",
-  "license": "MIT",
   "private": true,
   "scripts": {
     "build": "remix vite:build",
@@ -21,11 +16,7 @@
     "shopify": "shopify",
     "prisma": "prisma",
     "graphql-codegen": "graphql-codegen",
-    "vite": "vite",
-    "db:generate": "prisma generate",
-    "db:migrate": "prisma migrate dev",
-    "db:deploy": "prisma migrate deploy",
-    "db:reset": "prisma migrate reset"
+    "vite": "vite"
   },
   "type": "module",
   "engines": {
@@ -81,5 +72,6 @@
     "@graphql-codegen/typescript-operations": "4.5.0",
     "minimatch": "9.0.5",
     "vite": "^6.2.2"
-  }
+  },
+  "author": "Administrator"
 }
