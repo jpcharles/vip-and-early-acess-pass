@@ -44,7 +44,10 @@ export default defineConfig({
       preflightContinue: true,
     },
     port: Number(process.env.PORT || 3000),
-    hmr: hmrConfig,
+    hmr: {
+      ...hmrConfig,
+      overlay: false
+    },
     fs: {
       // See https://vitejs.dev/config/server-options.html#server-fs-allow for more information
       allow: ["app", "node_modules"],
