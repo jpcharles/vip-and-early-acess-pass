@@ -472,16 +472,21 @@ export default function Campaigns() {
               {campaigns.length === 0 ? (
                 <EmptyState
                   heading="No campaigns yet"
-                  action={{
-                    content: "Hhe Elite",
-                    onAction: () => {
-                      alert("ok");
-                      navigate("/app/campaigns/new");
-                    },
-                  }}
                   image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
                 >
                   <p>Create early access campaigns to give VIP customers exclusive access to your products.</p>
+                  <Box paddingBlockStart="400">
+                    <Button
+                      primary
+                      onClick={() => {
+                        console.log("Button clicked!");
+                        alert("Button clicked!");
+                        navigate("/app/campaigns/new");
+                      }}
+                    >
+                      The Elite
+                    </Button>
+                  </Box>
                 </EmptyState>
               ) : (
                 <>
