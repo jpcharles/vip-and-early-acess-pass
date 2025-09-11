@@ -9,8 +9,8 @@ generator client {
 // enough when changing adapters.
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
-  provider = "sqlite"
-  url      = "file:dev.sqlite"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Session {
@@ -27,6 +27,93 @@ model Session {
   email         String?
   accountOwner  Boolean   @default(false)
   locale        String?
-  collaborator  Boolean?  @default(false)
+  collaborator  Boolean?
   emailVerified Boolean?  @default(false)
+}
+
+model EarlyAccessCampaign {
+ id          String   @id @default(cuid())
+  shop        String
+  name        String
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Access control
+  accessType  AccessType @default(PASSWORD)
+  password    String?
+  secretLink  String?    @unique
+  
+  // Shopify integration
+  productIds  String[] // Array of Shopify product IDs
+  collectionIds String[] // Array of Shopify collection IDs
+  
+  // Email marketing integration
+  klaviyoListId    String?
+  omnisendListId   String?
+  autoTagEnabled   Boolean @default(true)
+  tagName          String  @default("VIP Early Access")
+  
+  // Campaign settings
+  customMessage    String?
+  redirectUrl      String?
+  expiresAt        DateTime?
+  
+  // Relations
+  signups          EarlyAccessSignup[]
+  gatedPages       GatedPage[]
+  
+  @@map("early_access_campaigns")
+}
+
+model EarlyAccessSignup {
+  id         String   @id @default(cuid())
+  campaignId String
+  email      String
+  firstName  String?
+  lastName   String?
+  phone      String?
+  createdAt  DateTime @default(now())
+  
+  // Marketing platform sync status
+  klaviyoSynced    Boolean @default(false)
+  omnisendSynced   Boolean @default(false)
+  syncError        String?
+  lastSyncAttempt  DateTime?
+  
+  // Relations
+  campaign        EarlyAccessCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  
+  @@unique([campaignId, email])
+  @@map("early_access_signups")
+}
+
+model GatedPage {
+  id          String   @id @default(cuid())
+  campaignId  String
+  shop        String
+  title       String
+  content     String   // HTML content for the gated page
+  slug        String   @unique
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // SEO and metadata
+  metaTitle       String?
+  metaDescription String?
+  ogImage         String?
+  
+  // Relations
+  campaign        EarlyAccessCampaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  
+  @@map("gated_pages")
+}
+
+enum AccessType {
+  PASSWORD
+  SECRET_LINK
+  EMAIL_SIGNUP
+  PASSWORD_OR_SIGNUP
 }
