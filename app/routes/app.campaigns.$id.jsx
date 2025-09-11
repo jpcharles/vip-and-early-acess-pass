@@ -16,12 +16,12 @@ import {
   Divider,
   Link,
   Badge,
-  DisplayText,
+  
   Heading,
-  Subheading,
-  Caption,
+  
+  
   Image,
-  Stack,
+  
   Icon,
   Tooltip,
   Modal,
@@ -31,7 +31,7 @@ import {
   ResourceList,
   ResourceItem,
   Thumbnail,
-  TextStyle,
+  
   ButtonGroup,
   CalloutCard,
   EmptyState,

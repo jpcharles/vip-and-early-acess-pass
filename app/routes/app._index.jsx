@@ -6,11 +6,9 @@ import {
   Text,
   Card,
   Button,
-  BlockStack,
   Box,
   List,
   Link,
-  InlineStack,
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
