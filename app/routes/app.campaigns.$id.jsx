@@ -10,40 +10,17 @@ import {
   InlineStack,
   TextField,
   FormLayout,
-  Banner,
-  Spinner,
   Box,
-  Divider,
-  Link,
   Badge,
-  
-  Heading,
-  
-  
-  Image,
-  
-  Icon,
-  Tooltip,
   Modal,
-  Form,
   Checkbox,
-  List,
   ResourceList,
   ResourceItem,
   Thumbnail,
-  
-  ButtonGroup,
-  CalloutCard,
   EmptyState,
   DataTable,
   Tabs,
   TabsPanel,
-  TabsList,
-  Tab,
-  ProgressBar,
-  StatCard,
-  TextContainer,
-  Collapsible,
   ButtonGroup as PolarisButtonGroup,
 } from "@shopify/polaris";
 import {
