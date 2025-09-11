@@ -21,24 +21,14 @@ import {
   DataTable,
   Tabs,
   TabsPanel,
-  ButtonGroup as PolarisButtonGroup,
   Toast,
 } from "@shopify/polaris";
-const {
-
-
-  Checkbox,
-
-  Tabs,
-  TabsPanel,
-
-} = pkg;
 
 import {
   KeyIcon,
   LinkIcon,
   EmailIcon,
-
+      
   AlertTriangleIcon,
 
   CalendarIcon,
