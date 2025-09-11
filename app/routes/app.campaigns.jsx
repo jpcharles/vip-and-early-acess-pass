@@ -126,8 +126,6 @@ export const action = async ({ request }) => {
           omnisendListId,
           tagName: tagName || "VIP Early Access",
           autoTagEnabled: true,
-          productIds: [], // Empty array for now, can be populated later
-          collectionIds: [], // Empty array for now, can be populated later
         };
 
         // Handle password hashing
@@ -229,6 +227,8 @@ export default function Campaigns() {
   const [statusFilter, setStatusFilter] = useState(filters.status);
   const [sortValue, setSortValue] = useState("createdAt_desc");
   const [toastMessage, setToastMessage] = useState("");
+  
+  // Form state for create modal
   const [createFormData, setCreateFormData] = useState({
     name: "",
     description: "",
@@ -236,50 +236,33 @@ export default function Campaigns() {
     password: "",
     customMessage: "",
     redirectUrl: "",
-    expiresAt: "",
     klaviyoListId: "",
     omnisendListId: "",
-    tagName: "VIP Early Access",
+    tagName: "VIP Early Access"
   });
 
   const isLoading = fetcher.state === "loading" || fetcher.state === "submitting";
 
-  // Handle successful form submission
+  // Handle fetcher responses
   useEffect(() => {
-    if (fetcher.data?.success && fetcher.formMethod === "POST") {
-      if (fetcher.formData?.get("action") === "create") {
+    if (fetcher.data) {
+      if (fetcher.data.success) {
         setToastMessage("Campaign created successfully!");
-        setIsCreateModalOpen(false);
-        resetCreateForm();
+        // Refresh the page to show the new campaign
+        window.location.reload();
+      } else if (fetcher.data.error) {
+        setToastMessage(`Error: ${fetcher.data.error}`);
       }
-    } else if (fetcher.data?.error) {
-      setToastMessage(fetcher.data.error);
     }
-  }, [fetcher.data, fetcher.formMethod, fetcher.formData]);
+  }, [fetcher.data]);
 
   // Handle form submissions
   const handleCreateCampaign = () => {
-    if (!createFormData.name || !createFormData.accessType) {
-      setToastMessage("Please fill in required fields");
-      return;
-    }
-    
-    if ((createFormData.accessType === "PASSWORD" || createFormData.accessType === "PASSWORD_OR_SIGNUP") && !createFormData.password) {
-      setToastMessage("Password is required for this access type");
-      return;
-    }
-
     fetcher.submit(
       { action: "create", ...createFormData },
       { method: "post" }
     );
-  };
-
-  const handleCreateFormChange = (field, value) => {
-    setCreateFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const resetCreateForm = () => {
+    setIsCreateModalOpen(false);
     setCreateFormData({
       name: "",
       description: "",
@@ -287,11 +270,17 @@ export default function Campaigns() {
       password: "",
       customMessage: "",
       redirectUrl: "",
-      expiresAt: "",
       klaviyoListId: "",
       omnisendListId: "",
-      tagName: "VIP Early Access",
+      tagName: "VIP Early Access"
     });
+  };
+
+  const handleCreateFormChange = (field, value) => {
+    setCreateFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   const handleUpdateCampaign = (formData) => {
@@ -528,10 +517,7 @@ export default function Campaigns() {
       {/* Create Campaign Modal */}
       <Modal
         open={isCreateModalOpen}
-        onClose={() => {
-          setIsCreateModalOpen(false);
-          resetCreateForm();
-        }}
+        onClose={() => setIsCreateModalOpen(false)}
         title="Create Early Access Campaign"
         primaryAction={{
           content: "Create Campaign",
@@ -541,10 +527,7 @@ export default function Campaigns() {
         secondaryActions={[
           {
             content: "Cancel",
-            onAction: () => {
-              setIsCreateModalOpen(false);
-              resetCreateForm();
-            },
+            onAction: () => setIsCreateModalOpen(false),
           },
         ]}
       >
@@ -552,20 +535,23 @@ export default function Campaigns() {
           <FormLayout>
             <TextField
               label="Campaign Name"
+              name="name"
+              placeholder="e.g., Black Friday Early Access"
               value={createFormData.name}
               onChange={(value) => handleCreateFormChange("name", value)}
-              placeholder="e.g., Black Friday Early Access"
               required
             />
             <TextField
               label="Description"
+              name="description"
+              placeholder="Describe your campaign..."
               value={createFormData.description}
               onChange={(value) => handleCreateFormChange("description", value)}
-              placeholder="Describe your campaign..."
               multiline={3}
             />
             <Select
               label="Access Type"
+              name="accessType"
               options={[
                 { label: "Password Protected", value: "PASSWORD" },
                 { label: "Secret Link", value: "SECRET_LINK" },
@@ -575,53 +561,51 @@ export default function Campaigns() {
               value={createFormData.accessType}
               onChange={(value) => handleCreateFormChange("accessType", value)}
             />
-            {(createFormData.accessType === "PASSWORD" || createFormData.accessType === "PASSWORD_OR_SIGNUP") && (
-              <TextField
-                label="Password"
-                type="password"
-                value={createFormData.password}
-                onChange={(value) => handleCreateFormChange("password", value)}
-                placeholder="Enter password for access"
-                required
-              />
-            )}
+            <TextField
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter password for access"
+              value={createFormData.password}
+              onChange={(value) => handleCreateFormChange("password", value)}
+              helpText="Required for password-based access types"
+            />
             <TextField
               label="Custom Message"
+              name="customMessage"
+              placeholder="Welcome message for customers..."
               value={createFormData.customMessage}
               onChange={(value) => handleCreateFormChange("customMessage", value)}
-              placeholder="Welcome message for customers..."
               multiline={2}
             />
             <TextField
               label="Redirect URL"
+              name="redirectUrl"
+              placeholder="https://yourstore.com/early-access"
               value={createFormData.redirectUrl}
               onChange={(value) => handleCreateFormChange("redirectUrl", value)}
-              placeholder="https://yourstore.com/early-access"
               helpText="Where to redirect after successful access"
             />
             <TextField
-              label="Expiration Date"
-              type="datetime-local"
-              value={createFormData.expiresAt}
-              onChange={(value) => handleCreateFormChange("expiresAt", value)}
-            />
-            <TextField
               label="Klaviyo List ID"
+              name="klaviyoListId"
+              placeholder="Enter Klaviyo list ID for auto-sync"
               value={createFormData.klaviyoListId}
               onChange={(value) => handleCreateFormChange("klaviyoListId", value)}
-              placeholder="Enter Klaviyo list ID for auto-sync"
             />
             <TextField
               label="Omnisend List ID"
+              name="omnisendListId"
+              placeholder="Enter Omnisend list ID for auto-sync"
               value={createFormData.omnisendListId}
               onChange={(value) => handleCreateFormChange("omnisendListId", value)}
-              placeholder="Enter Omnisend list ID for auto-sync"
             />
             <TextField
               label="Tag Name"
+              name="tagName"
+              placeholder="VIP Early Access"
               value={createFormData.tagName}
               onChange={(value) => handleCreateFormChange("tagName", value)}
-              placeholder="VIP Early Access"
             />
           </FormLayout>
         </Modal.Section>
