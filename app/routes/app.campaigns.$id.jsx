@@ -20,15 +20,16 @@ import {
   EmptyState,
   DataTable,
   Tabs,
-  TabsPanel,
   Toast,
 } from "@shopify/polaris";
+import pkg from '@shopify/polaris';
+const {TabsPanel} = pkg;
 
 import {
   KeyIcon,
   LinkIcon,
   EmailIcon,
-      
+
   AlertTriangleIcon,
 
   CalendarIcon,
