@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useFetcher, useNavigate } from "@remix-run/react";
-import pkg from "@shopify/polaris";
-const {
+import {
   Page,
   Layout,
   Card,
@@ -22,38 +21,34 @@ const {
   DataTable,
   Tabs,
   TabsPanel,
-  ButtonGroup: PolarisButtonGroup,
+  ButtonGroup as PolarisButtonGroup,
   Toast,
+} from "@shopify/polaris";
+const {
+
+
+  Checkbox,
+
+  Tabs,
+  TabsPanel,
+
 } = pkg;
+
 import {
-  LockIcon,
   KeyIcon,
   LinkIcon,
   EmailIcon,
-  CheckCircleIcon,
+
   AlertTriangleIcon,
-  ExternalIcon,
-  StarIcon,
+
   CalendarIcon,
   PersonIcon,
-  ProductIcon,
-  CollectionIcon,
-  ArrowLeftIcon,
-  RefreshIcon,
+
   DuplicateIcon,
-  ShareIcon,
   EditIcon,
-  DeleteIcon,
-  ViewIcon,
-  AnalyticsIcon,
+
   SettingsIcon,
-  SearchIcon,
-  FilterIcon,
-  SortIcon,
   PlusIcon,
-  MinusIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
 } from "@shopify/polaris-icons";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";

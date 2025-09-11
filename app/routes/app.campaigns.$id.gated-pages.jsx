@@ -2,80 +2,26 @@ import { useState, useCallback } from "react";
 import { useLoaderData, useActionData, useNavigate, useFetcher } from "@remix-run/react";
 import {
   Page,
-  Layout,
   Card,
   Button,
   Text,
-  Block
-  Inline
   TextField,
-  Select,
-  Checkbox,
   Banner,
   FormLayout,
   ButtonGroup,
-  Popover,
-  ActionList,
-  Icon,
-  Tooltip,
-  Link,
-  Box,
-  Divider,
   Thumbnail,
   ResourceList,
   ResourceItem,
-  
-  
-  
-  
-  
   Heading,
-  Spinner,
-  Frame,
-  TopBar,
-  Navigation,
-  Toast,
-  DatePicker,
-  ChoiceList,
-  RangeSlider,
   Modal,
-  Form,
-  List,
-  CalloutCard,
   EmptyState,
-  DataTable,
-  Badge,
-  Pagination,
-  Filters,
 } from "@shopify/polaris";
 import {
   PlusIcon,
-  EditIcon,
   DeleteIcon,
-  ViewIcon,
   ExternalIcon,
-  DuplicateIcon,
-  AnalyticsIcon,
-  SettingsIcon,
-  SearchIcon,
-  FilterIcon,
-  SortIcon,
-  RefreshIcon,
-  AlertTriangleIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  StarIcon,
-  PersonIcon,
-  ProductIcon,
-  CollectionIcon,
   LinkIcon,
-  KeyIcon,
-  EmailIcon,
-  TagIcon,
-  CalendarIcon,
-  MoreIcon,
   ArrowLeftIcon,
-  SaveIcon,
 } from "@shopify/polaris-icons";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
@@ -86,11 +32,11 @@ import { CampaignUtils } from "../lib/campaign-utils";
 export const loader = async ({ request, params }) => {
   const { session } = await authenticate.admin(request);
   const { id } = params;
-  
+
   const campaign = await prisma.earlyAccessCampaign.findFirst({
-    where: { 
+    where: {
       id,
-      shop: session.shop 
+      shop: session.shop
     },
     include: {
       gatedPages: true,
@@ -188,7 +134,7 @@ export default function CampaignGatedPages() {
 
   const handleInputChange = useCallback((field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Auto-generate slug from title
     if (field === "title") {
       const slug = CampaignUtils.generateSlug(value);
@@ -198,9 +144,9 @@ export default function CampaignGatedPages() {
 
   const handleCreate = () => {
     fetcher.submit(
-      { 
+      {
         action: "create",
-        ...formData 
+        ...formData
       },
       { method: "POST" }
     );
