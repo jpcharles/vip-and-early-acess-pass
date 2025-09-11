@@ -220,7 +220,6 @@ export default function Campaigns() {
   const navigate = useNavigate();
   const shopify = useAppBridge();
 
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCampaign, setEditingCampaign] = useState(null);
   const [searchValue, setSearchValue] = useState(filters.search);
@@ -391,7 +390,7 @@ export default function Campaigns() {
         <Button
           primary
           icon={PlusIcon}
-          onClick={() => setIsCreateModalOpen(true)}
+          onClick={() => navigate("/app/campaigns/new")}
         >
           Create Campaign
         </Button>
@@ -429,7 +428,7 @@ export default function Campaigns() {
                   heading="No campaigns yet"
                   action={{
                     content: "Create your first campaign",
-                    onAction: () => setIsCreateModalOpen(true),
+                    onAction: () => navigate("/app/campaigns/new"),
                   }}
                   image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
                 >
@@ -469,88 +468,6 @@ export default function Campaigns() {
         </Layout.Section>
       </Layout>
 
-      {/* Create Campaign Modal */}
-      <Modal
-        open={isCreateModalOpen}
-        onClose={() => setIsCreateModalOpen(false)}
-        title="Create Early Access Campaign"
-        primaryAction={{
-          content: "Create Campaign",
-          onAction: () => {
-            // Handle form submission
-            setIsCreateModalOpen(false);
-          },
-        }}
-        secondaryActions={[
-          {
-            content: "Cancel",
-            onAction: () => setIsCreateModalOpen(false),
-          },
-        ]}
-      >
-        <Modal.Section>
-          <FormLayout>
-            <TextField
-              label="Campaign Name"
-              name="name"
-              placeholder="e.g., Black Friday Early Access"
-              required
-            />
-            <TextField
-              label="Description"
-              name="description"
-              placeholder="Describe your campaign..."
-              multiline={3}
-            />
-            <Select
-              label="Access Type"
-              name="accessType"
-              options={[
-                { label: "Password Protected", value: "PASSWORD" },
-                { label: "Secret Link", value: "SECRET_LINK" },
-                { label: "Email Signup Required", value: "EMAIL_SIGNUP" },
-                { label: "Password or Email Signup", value: "PASSWORD_OR_SIGNUP" },
-              ]}
-              value="PASSWORD"
-            />
-            <TextField
-              label="Password"
-              name="password"
-              type="password"
-              placeholder="Enter password for access"
-              helpText="Required for password-based access types"
-            />
-            <TextField
-              label="Custom Message"
-              name="customMessage"
-              placeholder="Welcome message for customers..."
-              multiline={2}
-            />
-            <TextField
-              label="Redirect URL"
-              name="redirectUrl"
-              placeholder="https://yourstore.com/early-access"
-              helpText="Where to redirect after successful access"
-            />
-            <TextField
-              label="Klaviyo List ID"
-              name="klaviyoListId"
-              placeholder="Enter Klaviyo list ID for auto-sync"
-            />
-            <TextField
-              label="Omnisend List ID"
-              name="omnisendListId"
-              placeholder="Enter Omnisend list ID for auto-sync"
-            />
-            <TextField
-              label="Tag Name"
-              name="tagName"
-              placeholder="VIP Early Access"
-              defaultValue="VIP Early Access"
-            />
-          </FormLayout>
-        </Modal.Section>
-      </Modal>
 
       {/* Toast notifications */}
       {toastMessage && (
