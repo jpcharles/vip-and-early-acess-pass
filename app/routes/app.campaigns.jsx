@@ -484,7 +484,7 @@ export default function Campaigns() {
                         navigate("/app/campaigns/new");
                       }}
                     >
-                      The Elite
+                      Hi Elite
                     </Button>
                   </Box>
                 </EmptyState>
