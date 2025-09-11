@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useFetcher, useNavigate } from "@remix-run/react";
-import {
+import pkg from "@shopify/polaris";
+const {
   Page,
   Layout,
   Card,
@@ -21,8 +22,9 @@ import {
   DataTable,
   Tabs,
   TabsPanel,
-  ButtonGroup as PolarisButtonGroup,
-} from "@shopify/polaris";
+  ButtonGroup: PolarisButtonGroup,
+  Toast,
+} = pkg;
 import {
   LockIcon,
   KeyIcon,

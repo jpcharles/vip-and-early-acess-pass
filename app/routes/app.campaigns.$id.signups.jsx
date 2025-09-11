@@ -6,8 +6,8 @@ import {
   Card,
   Button,
   Text,
-  Block
-  Inline
+  Block,
+  Inline,
   TextField,
   Select,
   Checkbox,
