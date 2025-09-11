@@ -238,8 +238,7 @@ export default function NewCampaign() {
         </Banner>
       )}
 
-      <form method="post">
-        <Layout>
+      <Layout>
         <Layout.Section>
           <Card>
             <BlockStack gap="400">
@@ -419,23 +418,7 @@ export default function NewCampaign() {
             </BlockStack>
           </Card>
         </Layout.Section>
-        </Layout>
-
-        {/* Hidden inputs for form data */}
-        <input type="hidden" name="name" value={formData.name} />
-        <input type="hidden" name="description" value={formData.description} />
-        <input type="hidden" name="accessType" value={formData.accessType} />
-        <input type="hidden" name="password" value={formData.password} />
-        <input type="hidden" name="productIds" value={JSON.stringify(formData.productIds)} />
-        <input type="hidden" name="collectionIds" value={JSON.stringify(formData.collectionIds)} />
-        <input type="hidden" name="klaviyoListId" value={formData.klaviyoListId} />
-        <input type="hidden" name="omnisendListId" value={formData.omnisendListId} />
-        <input type="hidden" name="tagName" value={formData.tagName} />
-        <input type="hidden" name="customMessage" value={formData.customMessage} />
-        <input type="hidden" name="redirectUrl" value={formData.redirectUrl} />
-        <input type="hidden" name="expiresAt" value={formData.expiresAt} />
-        <input type="hidden" name="isActive" value={formData.isActive} />
-      </form>
+      </Layout>
 
       {/* Product Selection Modal */}
       <Modal
