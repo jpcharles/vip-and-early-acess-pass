@@ -473,8 +473,11 @@ export default function Campaigns() {
                 <EmptyState
                   heading="No campaigns yet"
                   action={{
-                    content: "Create your first campaign",
-                    onAction: () => setIsCreateModalOpen(true),
+                    content: "Hhe Elite",
+                    onAction: () => {
+                      alert("ok");
+                      navigate("/app/campaigns/new");
+                    },
                   }}
                   image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
                 >
