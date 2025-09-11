@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useFetcher } from "@remix-run/react";
-import {
+import pkg from '@shopify/polaris';
+const {
   Page,
   Layout,
   Text,
@@ -9,7 +10,9 @@ import {
   Box,
   List,
   Link,
-} from "@shopify/polaris";
+  BlockStack,
+  InlineStack,
+} = pkg;
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 

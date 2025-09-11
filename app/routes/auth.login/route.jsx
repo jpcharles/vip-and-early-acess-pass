@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
-import {
-  AppProvider as PolarisAppProvider,
+import pkg from '@shopify/polaris';
+const {
+  AppProvider: PolarisAppProvider,
   Button,
   Card,
   FormLayout,
   Page,
   Text,
   TextField,
-} from "@shopify/polaris";
+} = pkg;
 import polarisTranslations from "@shopify/polaris/locales/en.json";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { login } from "../../shopify.server";

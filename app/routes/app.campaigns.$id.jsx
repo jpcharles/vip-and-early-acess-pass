@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useFetcher, useNavigate } from "@remix-run/react";
-import {
+import pkg from '@shopify/polaris';
+const {
   Page,
   Layout,
   Card,
@@ -21,23 +22,19 @@ import {
   DataTable,
   Tabs,
   Toast,
-} from "@shopify/polaris";
-import pkg from '@shopify/polaris';
-const {TabsPanel} = pkg;
+  TabsPanel
+} = pkg;
 
 import {
   KeyIcon,
   LinkIcon,
   EmailIcon,
-
   AlertTriangleIcon,
-
   CalendarIcon,
   PersonIcon,
-
   DuplicateIcon,
   EditIcon,
-
+  DeleteIcon,
   SettingsIcon,
   PlusIcon,
 } from "@shopify/polaris-icons";

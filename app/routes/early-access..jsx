@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useActionData, useFetcher, useNavigate } from "@remix-run/react";
-import {
+import pkg from '@shopify/polaris';
+const {
   Page,
   Layout,
   Card,
@@ -16,7 +17,7 @@ import {
   Badge,
   Modal,
   Form
-} from "@shopify/polaris";
+} = pkg;
 import {
   LockIcon,
   KeyIcon,
