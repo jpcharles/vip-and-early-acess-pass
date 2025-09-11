@@ -17,6 +17,7 @@ const {
   Badge,
   BlockStack,
   InlineStack,
+  DownloadIcon,
 } = pkg;
 import {
   SearchIcon,
@@ -25,8 +26,7 @@ import {
   CheckCircleIcon,
   PersonIcon,
   CalendarIcon,
-  ArrowLeftIcon,
-  DownloadIcon,
+  ArrowLeftIcon
 } from "@shopify/polaris-icons";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
