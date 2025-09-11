@@ -24,7 +24,6 @@ import {
   AlertTriangleIcon,
   CheckCircleIcon,
   PersonIcon,
-  PersonIcon,
   CalendarIcon,
   ArrowLeftIcon,
   DownloadIcon,

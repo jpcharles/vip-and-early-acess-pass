@@ -19,22 +19,11 @@ const {
   Form
 } = pkg;
 import {
-  LockIcon,
-  KeyIcon,
-  LinkIcon,
-  EmailIcon,
   CheckCircleIcon,
   AlertTriangleIcon,
   ExternalIcon,
-  StarIcon,
   CalendarIcon,
-  PersonIcon,
-  ProductIcon,
-  CollectionIcon,
-  ArrowLeftIcon,
-  RefreshIcon,
-  DuplicateIcon,
-  ShareIcon,
+  PersonIcon
 } from "@shopify/polaris-icons";
 import { json, redirect } from "@remix-run/node";
 import prisma from "../db.server";
