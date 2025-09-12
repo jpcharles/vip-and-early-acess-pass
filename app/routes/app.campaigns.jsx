@@ -442,7 +442,6 @@ export default function Campaigns() {
           primary
           icon={PlusIcon}
           onClick={() => {
-            console.log("Create Campaign button clicked");
             setIsCreateModalOpen(true);
           }}
         >
@@ -487,7 +486,6 @@ export default function Campaigns() {
                     <Button
                       primary
                       onClick={() => {
-                        console.log("Create Campaign button clicked");
                         navigate("/app/campaigns/new");
                       }}
                     >
