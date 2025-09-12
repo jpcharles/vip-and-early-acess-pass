@@ -19,11 +19,6 @@ import {
   Box,
   BlockStack,
   Toast,
-  Table,
-  TableRow,
-  TableCell,
-  TableHead,
-  TableHeader,
 } from '@shopify/polaris';
 
 import {
@@ -353,6 +348,93 @@ export default function Campaigns() {
     return types[accessType] || { label: accessType, icon: SettingsIcon, color: "info" };
   };
 
+  // Table rows
+  const rows = campaigns.map((campaign) => {
+    const accessTypeInfo = getAccessTypeInfo(campaign.accessType);
+    const AccessIcon = accessTypeInfo.icon;
+
+    return [
+      <Box key="name">
+        <Text variant="bodyMd" fontWeight="semibold">
+          {campaign.name}
+        </Text>
+        {campaign.description && (
+          <Text variant="bodySm" color="subdued">
+            {campaign.description}
+          </Text>
+        )}
+      </Box>,
+      <InlineStack key="access" gap="200" align="center">
+        <AccessIcon />
+        <Text variant="bodyMd">{accessTypeInfo.label}</Text>
+      </InlineStack>,
+      <InlineStack key="status" gap="200" align="center">
+        <Badge status={campaign.isActive ? "success" : "critical"}>
+          {campaign.isActive ? "Active" : "Inactive"}
+        </Badge>
+        {campaign.isExpired && (
+          <Badge status="warning">Expired</Badge>
+        )}
+      </InlineStack>,
+      <Text key="signups" variant="bodyMd">
+        {campaign.signupCount} signups
+      </Text>,
+      <Text key="created" variant="bodyMd">
+        {new Date(campaign.createdAt).toLocaleDateString()}
+      </Text>,
+      <InlineStack key="actions" gap="100">
+        <Button
+          size="slim"
+          icon={ViewIcon}
+          onClick={() => navigate(`/app/campaigns/${campaign.id}`)}
+        >
+          View
+        </Button>
+        <Button
+          size="slim"
+          icon={EditIcon}
+          onClick={() => {
+            setEditingCampaign(campaign);
+            setIsEditModalOpen(true);
+          }}
+        >
+          Edit
+        </Button>
+        <Button
+          size="slim"
+          onClick={() => handleToggleCampaign(campaign)}
+        >
+          {campaign.isActive ? "Pause" : "Activate"}
+        </Button>
+        {campaign.accessType === "SECRET_LINK" && (
+          <Button
+            size="slim"
+            icon={DuplicateIcon}
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(campaign.secretLinkUrl);
+                setToastMessage("Secret link copied to clipboard!");
+              } catch (error) {
+                console.error("Failed to copy to clipboard:", error);
+                setToastMessage("Failed to copy link to clipboard");
+              }
+            }}
+          >
+            Copy Link
+          </Button>
+        )}
+        <Button
+          size="slim"
+          icon={DeleteIcon}
+          destructive
+          onClick={() => handleDeleteCampaign(campaign)}
+        >
+          Delete
+        </Button>
+      </InlineStack>,
+    ];
+  });
+
   return (
     <Page>
       <TitleBar title="Early Access Campaigns">
@@ -409,119 +491,12 @@ export default function Campaigns() {
                 </EmptyState>
               ) : (
                 <>
-                  <Table>
-                    <TableHead>
-                      <TableRow>
-                        <TableHeader>Campaign</TableHeader>
-                        <TableHeader>Access Type</TableHeader>
-                        <TableHeader>Status</TableHeader>
-                        <TableHeader>Signups</TableHeader>
-                        <TableHeader>Created</TableHeader>
-                        <TableHeader>Actions</TableHeader>
-                      </TableRow>
-                    </TableHead>
-                    <tbody>
-                      {campaigns.map((campaign) => {
-                        const accessTypeInfo = getAccessTypeInfo(campaign.accessType);
-                        const AccessIcon = accessTypeInfo.icon;
-
-                        return (
-                          <TableRow key={campaign.id}>
-                            <TableCell>
-                              <Box>
-                                <Text variant="bodyMd" fontWeight="semibold">
-                                  {campaign.name}
-                                </Text>
-                                {campaign.description && (
-                                  <Text variant="bodySm" color="subdued">
-                                    {campaign.description}
-                                  </Text>
-                                )}
-                              </Box>
-                            </TableCell>
-                            <TableCell>
-                              <InlineStack gap="200" align="center">
-                                <AccessIcon />
-                                <Text variant="bodyMd">{accessTypeInfo.label}</Text>
-                              </InlineStack>
-                            </TableCell>
-                            <TableCell>
-                              <InlineStack gap="200" align="center">
-                                <Badge status={campaign.isActive ? "success" : "critical"}>
-                                  {campaign.isActive ? "Active" : "Inactive"}
-                                </Badge>
-                                {campaign.isExpired && (
-                                  <Badge status="warning">Expired</Badge>
-                                )}
-                              </InlineStack>
-                            </TableCell>
-                            <TableCell>
-                              <Text variant="bodyMd">
-                                {campaign.signupCount} signups
-                              </Text>
-                            </TableCell>
-                            <TableCell>
-                              <Text variant="bodyMd">
-                                {new Date(campaign.createdAt).toLocaleDateString()}
-                              </Text>
-                            </TableCell>
-                            <TableCell>
-                              <InlineStack gap="100">
-                                <Button
-                                  size="slim"
-                                  icon={ViewIcon}
-                                  onClick={() => navigate(`/app/campaigns/${campaign.id}`)}
-                                >
-                                  View
-                                </Button>
-                                <Button
-                                  size="slim"
-                                  icon={EditIcon}
-                                  onClick={() => {
-                                    setEditingCampaign(campaign);
-                                    setIsEditModalOpen(true);
-                                  }}
-                                >
-                                  Edit
-                                </Button>
-                                <Button
-                                  size="slim"
-                                  onClick={() => handleToggleCampaign(campaign)}
-                                >
-                                  {campaign.isActive ? "Pause" : "Activate"}
-                                </Button>
-                                {campaign.accessType === "SECRET_LINK" && (
-                                  <Button
-                                    size="slim"
-                                    icon={DuplicateIcon}
-                                    onClick={async () => {
-                                      try {
-                                        await navigator.clipboard.writeText(campaign.secretLinkUrl);
-                                        setToastMessage("Secret link copied to clipboard!");
-                                      } catch (error) {
-                                        console.error("Failed to copy to clipboard:", error);
-                                        setToastMessage("Failed to copy link to clipboard");
-                                      }
-                                    }}
-                                  >
-                                    Copy Link
-                                  </Button>
-                                )}
-                                <Button
-                                  size="slim"
-                                  icon={DeleteIcon}
-                                  destructive
-                                  onClick={() => handleDeleteCampaign(campaign)}
-                                >
-                                  Delete
-                                </Button>
-                              </InlineStack>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
+                  <DataTable
+                    columnContentTypes={["text", "text", "text", "text", "text", "text"]}
+                    headings={["Campaign", "Access Type", "Status", "Signups", "Created", "Actions"]}
+                    rows={rows}
+                    footerContent={`Showing ${campaigns.length} of ${pagination.totalCount} campaigns`}
+                  />
 
                   {pagination.totalPages > 1 && (
                     <Box paddingBlockStart="400">
