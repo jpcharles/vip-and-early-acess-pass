@@ -25,7 +25,6 @@ import {
   CalendarIcon,
   PersonIcon
 } from "@shopify/polaris-icons";
-import polarisTranslations from "@shopify/polaris/locales/en.json";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { json, redirect } from "@remix-run/node";
 import prisma from "../db.server";
