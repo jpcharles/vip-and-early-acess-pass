@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import {
-  AppProvider: PolarisAppProvider,
+  AppProvider as PolarisAppProvider,
   Button,
   Card,
   FormLayout,
