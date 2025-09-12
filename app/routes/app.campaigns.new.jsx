@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useLoaderData, useActionData, useNavigate, useFetcher } from "@remix-run/react";
+import { useLoaderData, useActionData, useNavigate, useFetcher, Form } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -237,7 +237,7 @@ export default function NewCampaign() {
         </Banner>
       )}
 
-      <form method="post">
+      <Form method="post">
         <Layout>
           <Layout.Section>
             <Card>
@@ -448,7 +448,7 @@ export default function NewCampaign() {
             </Button>
           </InlineStack>
         </Box>
-      </form>
+      </Form>
 
       {/* Product Selection Modal */}
       <Modal
