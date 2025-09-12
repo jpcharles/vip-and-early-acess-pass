@@ -486,7 +486,10 @@ export default function Campaigns() {
                   <Box paddingBlockStart="400">
                     <Button
                       primary
-                      onClick={() => navigate("/app/campaigns/new")}
+                      onClick={() => {
+                        console.log("Create Campaign button clicked");
+                        navigate("/app/campaigns/new");
+                      }}
                     >
                       Create Campaign
                     </Button>
