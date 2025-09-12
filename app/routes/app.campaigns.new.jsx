@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import { useLoaderData, useActionData, useNavigate, useFetcher } from "@remix-run/react";
-import pkg from '@shopify/polaris';
-const {
+import {
   Heading,
   Page,
   Layout,
@@ -21,7 +20,7 @@ const {
   Modal,
   BlockStack,
   InlineStack,
-} = pkg;
+} from '@shopify/polaris';
 
 import {
   ProductIcon,
