@@ -26,6 +26,8 @@ import {
   PersonIcon
 } from "@shopify/polaris-icons";
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
+// Import English translations from Polaris
+import translations from "@shopify/polaris/locales/en.json";
 import { json, redirect } from "@remix-run/node";
 import prisma from "../db.server";
 import { CampaignUtils } from "../lib/campaign-utils";
@@ -516,7 +518,7 @@ export default function GatedPage() {
   };
 
   return (
-    <AppProvider isEmbeddedApp={false}>
+    <AppProvider isEmbeddedApp={false} i18n={translations}>
       <Page>
         <Layout>
           <Layout.Section>

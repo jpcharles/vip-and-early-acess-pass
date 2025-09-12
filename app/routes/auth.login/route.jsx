@@ -10,6 +10,8 @@ import {
   TextField,
 } from '@shopify/polaris';
 import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
+// Import English translations from Polaris
+import translations from "@shopify/polaris/locales/en.json";
 import { login } from "../../shopify.server";
 import { loginErrorMessage } from "./error.server";
 
@@ -36,7 +38,7 @@ export default function Auth() {
   const { errors } = actionData || loaderData;
 
   return (
-    <AppProvider isEmbeddedApp={false}>
+    <AppProvider isEmbeddedApp={false} i18n={translations}>
       <Page>
         <Card>
           <Form method="post">
