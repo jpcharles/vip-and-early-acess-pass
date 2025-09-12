@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import { useLoaderData, useActionData, useNavigate, useFetcher } from "@remix-run/react";
 import {
-  Heading,
   Page,
   Layout,
   Card,
@@ -242,7 +241,7 @@ export default function NewCampaign() {
         <Layout.Section>
           <Card>
             <BlockStack gap="400">
-              <Heading>Campaign Details</Heading>
+              <Text variant="headingMd" as="h2">Campaign Details</Text>
               
               <FormLayout>
                 <TextField
@@ -314,7 +313,7 @@ export default function NewCampaign() {
         <Layout.Section>
           <Card>
             <BlockStack gap="400">
-              <Heading>Products & Collections</Heading>
+              <Text variant="headingMd" as="h2">Products & Collections</Text>
               
               <InlineStack gap="300">
                 <Button
@@ -391,7 +390,7 @@ export default function NewCampaign() {
         <Layout.Section>
           <Card>
             <BlockStack gap="400">
-              <Heading>Email Marketing Integration</Heading>
+              <Text variant="headingMd" as="h2">Email Marketing Integration</Text>
               
               <FormLayout>
                 <TextField
