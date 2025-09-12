@@ -441,7 +441,10 @@ export default function Campaigns() {
         <Button
           primary
           icon={PlusIcon}
-          onClick={() => setIsCreateModalOpen(true)}
+          onClick={() => {
+            console.log("Create Campaign button clicked");
+            setIsCreateModalOpen(true);
+          }}
         >
           Create Campaign
         </Button>
