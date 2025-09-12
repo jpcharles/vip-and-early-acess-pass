@@ -16,11 +16,15 @@ import {
   Thumbnail,
   ResourceList,
   ResourceItem,
-  Heading,
   Modal,
   BlockStack,
   InlineStack,
 } from '@shopify/polaris';
+
+import pkg from '@shopify/polaris';
+
+
+
 import {
   ProductIcon,
   CollectionIcon,
@@ -32,6 +36,8 @@ import { authenticate } from "../shopify.server";
 import { json, redirect } from "@remix-run/node";
 import prisma from "../db.server";
 import { CampaignUtils } from "../lib/campaign-utils";
+
+const { Heading } = pkg;
 
 export const loader = async ({ request }) => {
   const { admin, session } = await authenticate.admin(request);
