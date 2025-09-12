@@ -449,6 +449,14 @@ export default function Campaigns() {
               <InlineStack align="space-between">
                 <Text variant="headingMd">Campaigns ({pagination.totalCount})</Text>
                 <InlineStack gap="200">
+                  <Button
+                    onClick={() => {
+                      console.log("Test button clicked!");
+                      alert("Test button clicked!");
+                    }}
+                  >
+                    Test Button
+                  </Button>
                   <TextField
                     placeholder="Search campaigns..."
                     value={searchValue}
@@ -469,7 +477,10 @@ export default function Campaigns() {
                 </InlineStack>
               </InlineStack>
 
-              {campaigns.length === 0 ? (
+              {(() => {
+                console.log("Campaigns length:", campaigns.length);
+                return campaigns.length === 0;
+              })() ? (
                 <EmptyState
                   heading="No campaigns yet"
                   image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
@@ -479,8 +490,8 @@ export default function Campaigns() {
                     <Button
                       primary
                       onClick={() => {
-                        console.log("Button clicked!");
-                        alert("Button clicked!");
+                        console.log("Hi Elite button clicked!");
+                        alert("Hi Elite button clicked!");
                         navigate("/app/campaigns/new");
                       }}
                     >
