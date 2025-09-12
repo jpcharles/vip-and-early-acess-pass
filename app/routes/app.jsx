@@ -25,7 +25,8 @@ export default function App() {
           Dashboard
         </Link>
         <Link to="/app/campaigns">Campaigns</Link>
-        <Link to="/app/additional">Settings</Link>
+        <Link to="/app/analytics">Analytics</Link>
+        <Link to="/app/settings">Settings</Link>
       </NavMenu>
       <Outlet />
     </AppProvider>
