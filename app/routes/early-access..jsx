@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useActionData, useFetcher, useNavigate } from "@remix-run/react";
 import {
+  AppProvider as PolarisAppProvider,
   Page,
   Layout,
   Card,
@@ -24,10 +25,14 @@ import {
   CalendarIcon,
   PersonIcon
 } from "@shopify/polaris-icons";
+import polarisTranslations from "@shopify/polaris/locales/en.json";
+import polarisStyles from "@shopify/polaris/build/esm/styles.css?url";
 import { json, redirect } from "@remix-run/node";
 import prisma from "../db.server";
 import { CampaignUtils } from "../lib/campaign-utils";
 import { EmailMarketingService } from "../lib/email-marketing";
+
+export const links = () => [{ rel: "stylesheet", href: polarisStyles }];
 
 export const loader = async ({ request, params }) => {
   const { slug } = params;
@@ -512,67 +517,69 @@ export default function GatedPage() {
   };
 
   return (
-    <Page>
-      <Layout>
-        <Layout.Section>
-          {accessGranted ? renderContent() : renderAccessForm()}
-        </Layout.Section>
-      </Layout>
+    <PolarisAppProvider i18n={polarisTranslations}>
+      <Page>
+        <Layout>
+          <Layout.Section>
+            {accessGranted ? renderContent() : renderAccessForm()}
+          </Layout.Section>
+        </Layout>
 
-      {/* Signup Modal for PASSWORD_OR_SIGNUP */}
-      <Modal
-        open={isSignupModalOpen}
-        onClose={() => setIsSignupModalOpen(false)}
-        title="Join Early Access"
-        primaryAction={{
-          content: "Sign Up",
-          onAction: () => {
-            const form = document.getElementById("signup-form");
-            if (form) {
-              form.requestSubmit();
-            }
-          },
-        }}
-        secondaryActions={[
-          {
-            content: "Cancel",
-            onAction: () => setIsSignupModalOpen(false),
-          },
-        ]}
-      >
-        <Modal.Section>
-          <Form id="signup-form" onSubmit={handleSignupSubmit}>
-            <FormLayout>
-              <Text variant="bodyMd" color="subdued">
-                {campaign.customMessage || "Sign up to get early access to this exclusive content."}
-              </Text>
-              <TextField
-                label="Email"
-                type="email"
-                value={formData.email}
-                onChange={(value) => handleInputChange("email", value)}
-                error={errors.email || actionData?.error}
-                required
-              />
-              <TextField
-                label="First Name"
-                value={formData.firstName}
-                onChange={(value) => handleInputChange("firstName", value)}
-              />
-              <TextField
-                label="Last Name"
-                value={formData.lastName}
-                onChange={(value) => handleInputChange("lastName", value)}
-              />
-              <TextField
-                label="Phone (Optional)"
-                value={formData.phone}
-                onChange={(value) => handleInputChange("phone", value)}
-              />
-            </FormLayout>
-          </Form>
-        </Modal.Section>
-      </Modal>
-    </Page>
+        {/* Signup Modal for PASSWORD_OR_SIGNUP */}
+        <Modal
+          open={isSignupModalOpen}
+          onClose={() => setIsSignupModalOpen(false)}
+          title="Join Early Access"
+          primaryAction={{
+            content: "Sign Up",
+            onAction: () => {
+              const form = document.getElementById("signup-form");
+              if (form) {
+                form.requestSubmit();
+              }
+            },
+          }}
+          secondaryActions={[
+            {
+              content: "Cancel",
+              onAction: () => setIsSignupModalOpen(false),
+            },
+          ]}
+        >
+          <Modal.Section>
+            <Form id="signup-form" onSubmit={handleSignupSubmit}>
+              <FormLayout>
+                <Text variant="bodyMd" color="subdued">
+                  {campaign.customMessage || "Sign up to get early access to this exclusive content."}
+                </Text>
+                <TextField
+                  label="Email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(value) => handleInputChange("email", value)}
+                  error={errors.email || actionData?.error}
+                  required
+                />
+                <TextField
+                  label="First Name"
+                  value={formData.firstName}
+                  onChange={(value) => handleInputChange("firstName", value)}
+                />
+                <TextField
+                  label="Last Name"
+                  value={formData.lastName}
+                  onChange={(value) => handleInputChange("lastName", value)}
+                />
+                <TextField
+                  label="Phone (Optional)"
+                  value={formData.phone}
+                  onChange={(value) => handleInputChange("phone", value)}
+                />
+              </FormLayout>
+            </Form>
+          </Modal.Section>
+        </Modal>
+      </Page>
+    </PolarisAppProvider>
   );
 }
