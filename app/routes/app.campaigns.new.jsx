@@ -237,187 +237,218 @@ export default function NewCampaign() {
         </Banner>
       )}
 
-      <Layout>
-        <Layout.Section>
-          <Card>
-            <BlockStack gap="400">
-              <Text variant="headingMd" as="h2">Campaign Details</Text>
-              
-              <FormLayout>
-                <TextField
-                  label="Campaign Name"
-                  value={formData.name}
-                  onChange={(value) => handleInputChange("name", value)}
-                  placeholder="e.g., VIP Early Access - New Collection"
-                  required
-                />
-
-                <TextField
-                  label="Description"
-                  value={formData.description}
-                  onChange={(value) => handleInputChange("description", value)}
-                  placeholder="Describe your early access campaign"
-                  multiline={3}
-                />
-
-                <Select
-                  label="Access Type"
-                  options={accessTypeOptions}
-                  value={formData.accessType}
-                  onChange={(value) => handleInputChange("accessType", value)}
-                />
-
-                {(formData.accessType === "PASSWORD" || formData.accessType === "PASSWORD_OR_SIGNUP") && (
+      <form method="post">
+        <Layout>
+          <Layout.Section>
+            <Card>
+              <BlockStack gap="400">
+                <Text variant="headingMd" as="h2">Campaign Details</Text>
+                
+                <FormLayout>
                   <TextField
-                    label="Password"
-                    type="password"
-                    value={formData.password}
-                    onChange={(value) => handleInputChange("password", value)}
-                    placeholder="Enter password for access"
+                    label="Campaign Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={(value) => handleInputChange("name", value)}
+                    placeholder="e.g., VIP Early Access - New Collection"
                     required
                   />
+
+                  <TextField
+                    label="Description"
+                    name="description"
+                    value={formData.description}
+                    onChange={(value) => handleInputChange("description", value)}
+                    placeholder="Describe your early access campaign"
+                    multiline={3}
+                  />
+
+                  <Select
+                    label="Access Type"
+                    name="accessType"
+                    options={accessTypeOptions}
+                    value={formData.accessType}
+                    onChange={(value) => handleInputChange("accessType", value)}
+                  />
+
+                  {(formData.accessType === "PASSWORD" || formData.accessType === "PASSWORD_OR_SIGNUP") && (
+                    <TextField
+                      label="Password"
+                      name="password"
+                      type="password"
+                      value={formData.password}
+                      onChange={(value) => handleInputChange("password", value)}
+                      placeholder="Enter password for access"
+                      required
+                    />
+                  )}
+
+                  <TextField
+                    label="Custom Message"
+                    name="customMessage"
+                    value={formData.customMessage}
+                    onChange={(value) => handleInputChange("customMessage", value)}
+                    placeholder="Custom message shown to users"
+                    multiline={2}
+                  />
+
+                  <TextField
+                    label="Redirect URL"
+                    name="redirectUrl"
+                    value={formData.redirectUrl}
+                    onChange={(value) => handleInputChange("redirectUrl", value)}
+                    placeholder="URL to redirect after successful access"
+                  />
+
+                  <TextField
+                    label="Expiration Date"
+                    name="expiresAt"
+                    type="datetime-local"
+                    value={formData.expiresAt}
+                    onChange={(value) => handleInputChange("expiresAt", value)}
+                  />
+
+                  <Checkbox
+                    label="Active"
+                    name="isActive"
+                    checked={formData.isActive}
+                    onChange={(checked) => handleInputChange("isActive", checked)}
+                  />
+                </FormLayout>
+              </BlockStack>
+            </Card>
+          </Layout.Section>
+
+          <Layout.Section>
+            <Card>
+              <BlockStack gap="400">
+                <Text variant="headingMd" as="h2">Products & Collections</Text>
+                
+                <InlineStack gap="300">
+                  <Button
+                    onClick={() => setShowProductSelector(true)}
+                    icon={ProductIcon}
+                  >
+                    Select Products ({formData.productIds.length})
+                  </Button>
+                  <Button
+                    onClick={() => setShowCollectionSelector(true)}
+                    icon={CollectionIcon}
+                  >
+                    Select Collections ({formData.collectionIds.length})
+                  </Button>
+                </InlineStack>
+
+                {/* Hidden inputs for form submission */}
+                <input type="hidden" name="productIds" value={JSON.stringify(formData.productIds)} />
+                <input type="hidden" name="collectionIds" value={JSON.stringify(formData.collectionIds)} />
+
+                {selectedProducts.length > 0 && (
+                  <BlockStack gap="200">
+                    <Text variant="headingSm">Selected Products:</Text>
+                    <ResourceList
+                      resourceName={{ singular: 'product', plural: 'products' }}
+                      items={selectedProducts}
+                      renderItem={(product) => (
+                        <ResourceItem
+                          id={product.id}
+                          onClick={() => handleProductToggle(product.id)}
+                        >
+                          <InlineStack gap="300">
+                            {product.image && (
+                              <Thumbnail
+                                source={product.image}
+                                alt={product.title}
+                                size="small"
+                              />
+                            )}
+                            <Text variant="bodyMd">{product.title}</Text>
+                          </InlineStack>
+                        </ResourceItem>
+                      )}
+                    />
+                  </BlockStack>
                 )}
 
-                <TextField
-                  label="Custom Message"
-                  value={formData.customMessage}
-                  onChange={(value) => handleInputChange("customMessage", value)}
-                  placeholder="Custom message shown to users"
-                  multiline={2}
-                />
+                {selectedCollections.length > 0 && (
+                  <BlockStack gap="200">
+                    <Text variant="headingSm">Selected Collections:</Text>
+                    <ResourceList
+                      resourceName={{ singular: 'collection', plural: 'collections' }}
+                      items={selectedCollections}
+                      renderItem={(collection) => (
+                        <ResourceItem
+                          id={collection.id}
+                          onClick={() => handleCollectionToggle(collection.id)}
+                        >
+                          <InlineStack gap="300">
+                            {collection.image && (
+                              <Thumbnail
+                                source={collection.image}
+                                alt={collection.title}
+                                size="small"
+                              />
+                            )}
+                            <Text variant="bodyMd">{collection.title}</Text>
+                          </InlineStack>
+                        </ResourceItem>
+                      )}
+                    />
+                  </BlockStack>
+                )}
+              </BlockStack>
+            </Card>
+          </Layout.Section>
 
-                <TextField
-                  label="Redirect URL"
-                  value={formData.redirectUrl}
-                  onChange={(value) => handleInputChange("redirectUrl", value)}
-                  placeholder="URL to redirect after successful access"
-                />
-
-                <TextField
-                  label="Expiration Date"
-                  type="datetime-local"
-                  value={formData.expiresAt}
-                  onChange={(value) => handleInputChange("expiresAt", value)}
-                />
-
-                <Checkbox
-                  label="Active"
-                  checked={formData.isActive}
-                  onChange={(checked) => handleInputChange("isActive", checked)}
-                />
-              </FormLayout>
-            </BlockStack>
-          </Card>
-        </Layout.Section>
-
-        <Layout.Section>
-          <Card>
-            <BlockStack gap="400">
-              <Text variant="headingMd" as="h2">Products & Collections</Text>
-              
-              <InlineStack gap="300">
-                <Button
-                  onClick={() => setShowProductSelector(true)}
-                  icon={ProductIcon}
-                >
-                  Select Products ({formData.productIds.length})
-                </Button>
-                <Button
-                  onClick={() => setShowCollectionSelector(true)}
-                  icon={CollectionIcon}
-                >
-                  Select Collections ({formData.collectionIds.length})
-                </Button>
-              </InlineStack>
-
-              {selectedProducts.length > 0 && (
-                <BlockStack gap="200">
-                  <Text variant="headingSm">Selected Products:</Text>
-                  <ResourceList
-                    resourceName={{ singular: 'product', plural: 'products' }}
-                    items={selectedProducts}
-                    renderItem={(product) => (
-                      <ResourceItem
-                        id={product.id}
-                        onClick={() => handleProductToggle(product.id)}
-                      >
-                        <InlineStack gap="300">
-                          {product.image && (
-                            <Thumbnail
-                              source={product.image}
-                              alt={product.title}
-                              size="small"
-                            />
-                          )}
-                          <Text variant="bodyMd">{product.title}</Text>
-                        </InlineStack>
-                      </ResourceItem>
-                    )}
+          <Layout.Section>
+            <Card>
+              <BlockStack gap="400">
+                <Text variant="headingMd" as="h2">Email Marketing Integration</Text>
+                
+                <FormLayout>
+                  <TextField
+                    label="Klaviyo List ID"
+                    name="klaviyoListId"
+                    value={formData.klaviyoListId}
+                    onChange={(value) => handleInputChange("klaviyoListId", value)}
+                    placeholder="Enter Klaviyo list ID for auto-sync"
                   />
-                </BlockStack>
-              )}
 
-              {selectedCollections.length > 0 && (
-                <BlockStack gap="200">
-                  <Text variant="headingSm">Selected Collections:</Text>
-                  <ResourceList
-                    resourceName={{ singular: 'collection', plural: 'collections' }}
-                    items={selectedCollections}
-                    renderItem={(collection) => (
-                      <ResourceItem
-                        id={collection.id}
-                        onClick={() => handleCollectionToggle(collection.id)}
-                      >
-                        <InlineStack gap="300">
-                          {collection.image && (
-                            <Thumbnail
-                              source={collection.image}
-                              alt={collection.title}
-                              size="small"
-                            />
-                          )}
-                          <Text variant="bodyMd">{collection.title}</Text>
-                        </InlineStack>
-                      </ResourceItem>
-                    )}
+                  <TextField
+                    label="Omnisend List ID"
+                    name="omnisendListId"
+                    value={formData.omnisendListId}
+                    onChange={(value) => handleInputChange("omnisendListId", value)}
+                    placeholder="Enter Omnisend list ID for auto-sync"
                   />
-                </BlockStack>
-              )}
-            </BlockStack>
-          </Card>
-        </Layout.Section>
 
-        <Layout.Section>
-          <Card>
-            <BlockStack gap="400">
-              <Text variant="headingMd" as="h2">Email Marketing Integration</Text>
-              
-              <FormLayout>
-                <TextField
-                  label="Klaviyo List ID"
-                  value={formData.klaviyoListId}
-                  onChange={(value) => handleInputChange("klaviyoListId", value)}
-                  placeholder="Enter Klaviyo list ID for auto-sync"
-                />
+                  <TextField
+                    label="Tag Name"
+                    name="tagName"
+                    value={formData.tagName}
+                    onChange={(value) => handleInputChange("tagName", value)}
+                    placeholder="Tag name for signups"
+                  />
+                </FormLayout>
+              </BlockStack>
+            </Card>
+          </Layout.Section>
+        </Layout>
 
-                <TextField
-                  label="Omnisend List ID"
-                  value={formData.omnisendListId}
-                  onChange={(value) => handleInputChange("omnisendListId", value)}
-                  placeholder="Enter Omnisend list ID for auto-sync"
-                />
-
-                <TextField
-                  label="Tag Name"
-                  value={formData.tagName}
-                  onChange={(value) => handleInputChange("tagName", value)}
-                  placeholder="Tag name for signups"
-                />
-              </FormLayout>
-            </BlockStack>
-          </Card>
-        </Layout.Section>
-      </Layout>
+        {/* Save Button */}
+        <Box padding="400">
+          <InlineStack align="end">
+            <Button
+              primary
+              size="large"
+              icon={SaveIcon}
+              submit
+            >
+              Create Campaign
+            </Button>
+          </InlineStack>
+        </Box>
+      </form>
 
       {/* Product Selection Modal */}
       <Modal
@@ -496,20 +527,6 @@ export default function NewCampaign() {
           />
         </Modal.Section>
       </Modal>
-
-      {/* Save Button */}
-      <Box padding="400">
-        <InlineStack align="end">
-          <Button
-            primary
-            size="large"
-            icon={SaveIcon}
-            submit
-          >
-            Create Campaign
-          </Button>
-        </InlineStack>
-      </Box>
     </Page>
   );
 }
