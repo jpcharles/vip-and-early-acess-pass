@@ -20,6 +20,7 @@ import {
   BlockStack,
   Toast,
 } from '@shopify/polaris';
+
 import {
   PlusIcon,
   EditIcon,
@@ -33,6 +34,7 @@ import {
   KeyIcon,
   EmailIcon,
 } from "@shopify/polaris-icons";
+
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 import { json } from "@remix-run/node";
