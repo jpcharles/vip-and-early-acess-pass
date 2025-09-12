@@ -220,11 +220,6 @@ export default function Campaigns() {
   const navigate = useNavigate();
   const shopify = useAppBridge();
 
-  // Debug logging
-  console.log("Campaigns component rendered");
-  console.log("Campaigns data:", campaigns);
-  console.log("Pagination:", pagination);
-
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCampaign, setEditingCampaign] = useState(null);
@@ -247,25 +242,6 @@ export default function Campaigns() {
   });
 
   const isLoading = fetcher.state === "loading" || fetcher.state === "submitting";
-
-  // Test function
-  const testFunction = () => {
-    console.log("Test function called!");
-    alert("Test function called!");
-  };
-
-  // Debug useEffect
-  useEffect(() => {
-    console.log("Campaigns component mounted");
-    console.log("Component state:", { isCreateModalOpen, isEditModalOpen, searchValue, statusFilter });
-    
-    // Test if console.log works at all
-    console.log("Testing console.log functionality");
-    alert("Component mounted - check console for logs");
-    
-    // Test function call
-    testFunction();
-  }, []);
 
   // Handle fetcher responses
   useEffect(() => {
@@ -316,13 +292,13 @@ export default function Campaigns() {
 
   const handleToggleCampaign = (campaign) => {
     fetcher.submit(
-      { action: "toggle", id: campaign.id, isActive: !campaign.isActive },
+      { action: "toggle", id: campaign.id, isActive: String(!campaign.isActive) },
       { method: "post" }
     );
   };
 
   const handleDeleteCampaign = (campaign) => {
-    if (confirm(`Are you sure you want to delete "${campaign.name}"?`)) {
+    if (window.confirm(`Are you sure you want to delete "${campaign.name}"?`)) {
       fetcher.submit(
         { action: "delete", id: campaign.id },
         { method: "post" }
@@ -434,9 +410,14 @@ export default function Campaigns() {
           <Button
             size="slim"
             icon={DuplicateIcon}
-            onClick={() => {
-              navigator.clipboard.writeText(campaign.secretLinkUrl);
-              setToastMessage("Secret link copied to clipboard!");
+            onClick={async () => {
+              try {
+                await navigator.clipboard.writeText(campaign.secretLinkUrl);
+                setToastMessage("Secret link copied to clipboard!");
+              } catch (error) {
+                console.error("Failed to copy to clipboard:", error);
+                setToastMessage("Failed to copy link to clipboard");
+              }
             }}
           >
             Copy Link
@@ -473,21 +454,6 @@ export default function Campaigns() {
               <InlineStack align="space-between">
                 <Text variant="headingMd">Campaigns ({pagination.totalCount})</Text>
                 <InlineStack gap="200">
-                  <button
-                    onClick={testFunction}
-                    onMouseDown={() => console.log("HTML Test button mouse down")}
-                    onMouseUp={() => console.log("HTML Test button mouse up")}
-                    style={{ padding: '8px 16px', margin: '4px' }}
-                  >
-                    HTML Test Button
-                  </button>
-                  <Button
-                    onClick={testFunction}
-                    onMouseDown={() => console.log("Polaris Test button mouse down")}
-                    onMouseUp={() => console.log("Polaris Test button mouse up")}
-                  >
-                    Polaris Test Button
-                  </Button>
                   <TextField
                     placeholder="Search campaigns..."
                     value={searchValue}
@@ -508,10 +474,7 @@ export default function Campaigns() {
                 </InlineStack>
               </InlineStack>
 
-              {(() => {
-                console.log("Campaigns length:", campaigns.length);
-                return campaigns.length === 0;
-              })() ? (
+              {campaigns.length === 0 ? (
                 <EmptyState
                   heading="No campaigns yet"
                   image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
@@ -520,14 +483,9 @@ export default function Campaigns() {
                   <Box paddingBlockStart="400">
                     <Button
                       primary
-                      onClick={() => {
-                        testFunction();
-                        console.log("Hi Elite button clicked!");
-                        alert("Hi Elite button clicked!");
-                        navigate("/app/campaigns/new");
-                      }}
+                      onClick={() => navigate("/app/campaigns/new")}
                     >
-                      Hi Elite
+                      Create Campaign
                     </Button>
                   </Box>
                 </EmptyState>
