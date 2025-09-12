@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { useLoaderData, useFetcher, useNavigate } from "@remix-run/react";
-import pkg from '@shopify/polaris';
-const {
+import {
   Page,
   Layout,
   Card,
@@ -20,7 +19,7 @@ const {
   Box,
   BlockStack,
   Toast,
-} = pkg;
+} from '@shopify/polaris';
 import {
   PlusIcon,
   EditIcon,
@@ -248,6 +247,18 @@ export default function Campaigns() {
     if (fetcher.data) {
       if (fetcher.data.success) {
         setToastMessage("Campaign created successfully!");
+        setIsCreateModalOpen(false);
+        setCreateFormData({
+          name: "",
+          description: "",
+          accessType: "PASSWORD",
+          password: "",
+          customMessage: "",
+          redirectUrl: "",
+          klaviyoListId: "",
+          omnisendListId: "",
+          tagName: "VIP Early Access"
+        });
         // Refresh the page to show the new campaign
         window.location.reload();
       } else if (fetcher.data.error) {
@@ -262,18 +273,6 @@ export default function Campaigns() {
       { action: "create", ...createFormData },
       { method: "post" }
     );
-    setIsCreateModalOpen(false);
-    setCreateFormData({
-      name: "",
-      description: "",
-      accessType: "PASSWORD",
-      password: "",
-      customMessage: "",
-      redirectUrl: "",
-      klaviyoListId: "",
-      omnisendListId: "",
-      tagName: "VIP Early Access"
-    });
   };
 
   const handleCreateFormChange = (field, value) => {
@@ -401,7 +400,6 @@ export default function Campaigns() {
         </Button>
         <Button
           size="slim"
-          icon={campaign.isActive ? "pause" : "play"}
           onClick={() => handleToggleCampaign(campaign)}
         >
           {campaign.isActive ? "Pause" : "Activate"}
