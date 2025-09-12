@@ -70,4 +70,10 @@ export default defineConfig({
   optimizeDeps: {
     include: ["@shopify/app-bridge-react", "@shopify/polaris"],
   },
+  define: {
+    global: "globalThis",
+  },
+  ssr: {
+    noExternal: ["@shopify/polaris"],
+  },
 });

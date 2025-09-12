@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useActionData, useFetcher, useNavigate } from "@remix-run/react";
-import pkg from '@shopify/polaris';
-const {
+import {
   Page,
   Layout,
   Card,
@@ -17,7 +16,7 @@ const {
   Badge,
   Modal,
   Form
-} = pkg;
+} from '@shopify/polaris';
 import {
   CheckCircleIcon,
   AlertTriangleIcon,
