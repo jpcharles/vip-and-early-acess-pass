@@ -220,6 +220,11 @@ export default function Campaigns() {
   const navigate = useNavigate();
   const shopify = useAppBridge();
 
+  // Debug logging
+  console.log("Campaigns component rendered");
+  console.log("Campaigns data:", campaigns);
+  console.log("Pagination:", pagination);
+
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCampaign, setEditingCampaign] = useState(null);
@@ -242,6 +247,25 @@ export default function Campaigns() {
   });
 
   const isLoading = fetcher.state === "loading" || fetcher.state === "submitting";
+
+  // Test function
+  const testFunction = () => {
+    console.log("Test function called!");
+    alert("Test function called!");
+  };
+
+  // Debug useEffect
+  useEffect(() => {
+    console.log("Campaigns component mounted");
+    console.log("Component state:", { isCreateModalOpen, isEditModalOpen, searchValue, statusFilter });
+    
+    // Test if console.log works at all
+    console.log("Testing console.log functionality");
+    alert("Component mounted - check console for logs");
+    
+    // Test function call
+    testFunction();
+  }, []);
 
   // Handle fetcher responses
   useEffect(() => {
@@ -449,13 +473,20 @@ export default function Campaigns() {
               <InlineStack align="space-between">
                 <Text variant="headingMd">Campaigns ({pagination.totalCount})</Text>
                 <InlineStack gap="200">
-                  <Button
-                    onClick={() => {
-                      console.log("Test button clicked!");
-                      alert("Test button clicked!");
-                    }}
+                  <button
+                    onClick={testFunction}
+                    onMouseDown={() => console.log("HTML Test button mouse down")}
+                    onMouseUp={() => console.log("HTML Test button mouse up")}
+                    style={{ padding: '8px 16px', margin: '4px' }}
                   >
-                    Test Button
+                    HTML Test Button
+                  </button>
+                  <Button
+                    onClick={testFunction}
+                    onMouseDown={() => console.log("Polaris Test button mouse down")}
+                    onMouseUp={() => console.log("Polaris Test button mouse up")}
+                  >
+                    Polaris Test Button
                   </Button>
                   <TextField
                     placeholder="Search campaigns..."
@@ -490,6 +521,7 @@ export default function Campaigns() {
                     <Button
                       primary
                       onClick={() => {
+                        testFunction();
                         console.log("Hi Elite button clicked!");
                         alert("Hi Elite button clicked!");
                         navigate("/app/campaigns/new");
