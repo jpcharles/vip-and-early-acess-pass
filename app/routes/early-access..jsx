@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLoaderData, useActionData, useFetcher, useNavigate } from "@remix-run/react";
+import { AppProvider } from "@shopify/shopify-app-remix/react";
 import {
-  AppProvider as PolarisAppProvider,
   Page,
   Layout,
   Card,
@@ -517,7 +517,7 @@ export default function GatedPage() {
   };
 
   return (
-    <PolarisAppProvider i18n={polarisTranslations}>
+    <AppProvider isEmbeddedApp={false}>
       <Page>
         <Layout>
           <Layout.Section>
@@ -580,6 +580,6 @@ export default function GatedPage() {
           </Modal.Section>
         </Modal>
       </Page>
-    </PolarisAppProvider>
+    </AppProvider>
   );
 }
