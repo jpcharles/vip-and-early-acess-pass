@@ -102,12 +102,16 @@ export default function Index() {
                 </BlockStack>
                 
                 <InlineStack gap="300">
-                  <Button url="/app/campaigns/new" primary>
-                    Create New Campaign
-                  </Button>
-                  <Button url="/app/campaigns" variant="plain">
-                    View All Campaigns
-                  </Button>
+                  <Link to="/app/campaigns/new">
+                    <Button primary>
+                      Create New Campaign
+                    </Button>
+                  </Link>
+                  <Link to="/app/campaigns">
+                    <Button variant="plain">
+                      View All Campaigns
+                    </Button>
+                  </Link>
                 </InlineStack>
               </BlockStack>
             </Card>
