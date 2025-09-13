@@ -92,7 +92,7 @@ export default function Index() {
               <BlockStack gap="500">
                 <BlockStack gap="200">
                   <Text as="h2" variant="headingMd">
-                    Welcome to Early Access Pass ��
+                    Welcome to Early Access Pass
                   </Text>
                   <Text variant="bodyMd" as="p">
                     Create exclusive VIP early access campaigns for your products and collections. 
@@ -102,16 +102,12 @@ export default function Index() {
                 </BlockStack>
                 
                 <InlineStack gap="300">
-                  <Link to="/app/campaigns/new">
-                    <Button primary>
-                      Create New Campaign
-                    </Button>
-                  </Link>
-                  <Link to="/app/campaigns">
-                    <Button variant="plain">
-                      View All Campaigns
-                    </Button>
-                  </Link>
+                  <Button url="/app/campaigns/new" primary>
+                    Create New Campaign
+                  </Button>
+                  <Button url="/app/campaigns" variant="plain">
+                    View All Campaigns
+                  </Button>
                 </InlineStack>
               </BlockStack>
             </Card>
