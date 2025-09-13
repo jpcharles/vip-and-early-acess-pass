@@ -246,7 +246,7 @@ export default function Campaigns() {
 
   // Handle fetcher responses
   useEffect(() => {
-    if (fetcher.data) {
+    if (fetcher.data && fetcher.state === "idle") {
       if (fetcher.data.success) {
         setToastMessage("Campaign created successfully!");
         setIsCreateModalOpen(false);
@@ -267,7 +267,7 @@ export default function Campaigns() {
         setToastMessage(`Error: ${fetcher.data.error}`);
       }
     }
-  }, [fetcher.data]);
+  }, [fetcher.data, fetcher.state]);
 
   // Handle form submissions
   const handleCreateCampaign = () => {
@@ -442,6 +442,7 @@ export default function Campaigns() {
           primary
           icon={PlusIcon}
           onClick={() => {
+            console.log("Create Campaign button clicked, opening modal");
             setIsCreateModalOpen(true);
           }}
         >
