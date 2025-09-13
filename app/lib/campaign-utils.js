@@ -141,7 +141,7 @@ export class CampaignUtils {
       hasProducts: this.hasProductsOrCollections(campaign),
       isExpired: campaign.expiresAt ? new Date() > campaign.expiresAt : false,
       secretLinkUrl: campaign.secretLink ? 
-        this.generateSecretLinkUrl(campaign.secretLink, process.env.SHOPIFY_APP_URL) : null
+        this.generateSecretLinkUrl(campaign.secretLink, process.env.SHOPIFY_APP_URL) : ""
     };
   }
 }
