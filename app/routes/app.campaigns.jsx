@@ -487,7 +487,7 @@ export default function Campaigns() {
                     <Button
                       primary
                       onClick={() => {
-                        navigate("/app/campaigns/new");
+                        setIsCreateModalOpen(true);
                       }}
                     >
                       Create Campaign
