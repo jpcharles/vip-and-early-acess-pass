@@ -378,14 +378,8 @@ export default function Campaigns() {
                 >
                   <p>Create early access campaigns to give VIP customers exclusive access to your products.</p>
                   <Box paddingBlockStart="400">
-                    <Link url="/app/campaigns/new" removeUnderline>
-                      <Button
-                        primary
-                        // onClick={() => {
-                        //   navigate('/app/campaigns/new');
-
-                        // }}
-                      >
+                    <Link to="/app/campaigns/new">
+                      <Button primary>
                         Create Campaign
                       </Button>
                     </Link>
