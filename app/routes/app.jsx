@@ -24,7 +24,7 @@ export default function App() {
         <Link to="/app" rel="home">VIP Early Access Pass</Link>
         <Link to="/app/campaigns">Campaigns</Link>
         <Link to="/app/analytics">Analytics</Link>
-        <Link to="/app/settings">Settings</Link>
+        <Link to="/app/settings">Settingsksksks</Link>
       </NavMenu>
       <Outlet />
     </AppProvider>
