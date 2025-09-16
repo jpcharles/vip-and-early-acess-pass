@@ -174,7 +174,7 @@ export default function Campaigns() {
   const [searchValue, setSearchValue] = useState(filters.search);
   const [sortValue, setSortValue] = useState("createdAt_desc");
   const [toastMessage, setToastMessage] = useState("");
-  
+
 
   const isLoading = fetcher.state === "loading" || fetcher.state === "submitting";
 
@@ -333,6 +333,7 @@ export default function Campaigns() {
 
   return (
     <Page>
+      <TitleBar title="Campaigns" />
       <Layout>
         <Layout.Section>
           <Card>
@@ -357,17 +358,11 @@ export default function Campaigns() {
                 >
                   <p>Create early access campaigns to give VIP customers exclusive access to your products.</p>
                   <Box paddingBlockStart="400">
-                    <Button
-                      primary
-                      onClick={() => {
-                        console.log('Empty state Create Campaign button clicked');
-                        console.log('Attempting to navigate to /app/campaigns/new');
-                        console.log("22222222222222222");
-                        navigate('/app/campaigns/new');
-                      }}
-                    >
-                      Create Campaign
-                    </Button>
+                    <Link to="/app/campaigns/new">
+                      <Button primary>
+                        Create Campaign
+                      </Button>
+                    </Link>
                   </Box>
                 </EmptyState>
               ) : (
