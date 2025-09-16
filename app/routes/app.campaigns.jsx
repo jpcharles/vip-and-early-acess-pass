@@ -337,7 +337,11 @@ export default function Campaigns() {
         <Button
           primary
           icon={PlusIcon}
-          onClick={() => navigate('/app/campaigns/new')}
+          onClick={() => {
+            console.log('Create Campaign button clicked');
+            console.log('Attempting to navigate to /app/campaigns/new');
+            navigate('/app/campaigns/new');
+          }}
         >
           Create Campaign
         </Button>
@@ -369,7 +373,11 @@ export default function Campaigns() {
                   <Box paddingBlockStart="400">
                     <Button
                       primary
-                      onClick={() => navigate('/app/campaigns/new')}
+                      onClick={() => {
+                        console.log('Empty state Create Campaign button clicked');
+                        console.log('Attempting to navigate to /app/campaigns/new');
+                        navigate('/app/campaigns/new');
+                      }}
                     >
                       Create Campaign
                     </Button>

@@ -25,8 +25,13 @@ import prisma from "../db.server";
 import { CampaignUtils } from "../lib/campaign-utils";
 
 export const loader = async ({ request }) => {
-  await authenticate.admin(request);
-  return { message: "Minimal route working" };
+  try {
+    await authenticate.admin(request);
+    return { message: "Route working" };
+  } catch (error) {
+    console.error('Authentication error in new campaign route:', error);
+    throw error;
+  }
 };
 
 export const action = async ({ request }) => {
@@ -67,6 +72,8 @@ export const action = async ({ request }) => {
 export default function NewCampaign() {
   const actionData = useActionData();
   const navigate = useNavigate();
+  
+  console.log('NewCampaign component rendered');
 
   const [formData, setFormData] = useState({
     name: "",
