@@ -338,7 +338,7 @@ export default function Campaigns() {
           <Card>
             <BlockStack gap="400">
               <InlineStack align="space-between">
-                <Text variant="headingMd">Campaigns ({pagination.totalCount})</Text>
+                <Text gap="200" variant="headingMd">Campaigns ({pagination.totalCount})</Text>
                 <InlineStack gap="200">
                   <TextField
                     placeholder="Search campaigns..."
