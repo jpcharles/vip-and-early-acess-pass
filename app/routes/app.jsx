@@ -21,9 +21,7 @@ export default function App() {
   return (
     <AppProvider isEmbeddedApp={true} apiKey={apiKey} i18n={translations}>
       <NavMenu>
-        <Link to="/app" rel="home">
-          Dashboard
-        </Link>
+        <Link to="/app" rel="home"></Link>
         <Link to="/app/campaigns">Campaigns</Link>
         <Link to="/app/analytics">Analytics</Link>
         <Link to="/app/settings">Settings</Link>
