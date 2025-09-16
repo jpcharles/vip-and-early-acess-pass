@@ -333,19 +333,6 @@ export default function Campaigns() {
 
   return (
     <Page>
-      <TitleBar title="Early Access Campaigns">
-        <Button
-          primary
-          icon={PlusIcon}
-          onClick={() => {
-            console.log("11111111111111111");
-            navigate('/app/campaigns/new');
-          }}
-        >
-          Create Campaign
-        </Button>
-      </TitleBar>
-
       <Layout>
         <Layout.Section>
           <Card>
