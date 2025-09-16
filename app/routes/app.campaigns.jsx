@@ -338,6 +338,7 @@ export default function Campaigns() {
           primary
           icon={PlusIcon}
           onClick={() => {
+            console.log("11111111111111111");
             navigate('/app/campaigns/new');
           }}
         >
@@ -374,6 +375,7 @@ export default function Campaigns() {
                       onClick={() => {
                         console.log('Empty state Create Campaign button clicked');
                         console.log('Attempting to navigate to /app/campaigns/new');
+                        console.log("22222222222222222");
                         navigate('/app/campaigns/new');
                       }}
                     >
