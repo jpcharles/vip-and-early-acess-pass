@@ -23,8 +23,9 @@ export default function App() {
       <NavMenu>
         <Link to="/app" rel="home">VIP Early Access Pass</Link>
         <Link to="/app/campaigns">Campaigns</Link>
+        <Link to="/app/campaigns/new">Create Campaign</Link>
         <Link to="/app/analytics">Analytics</Link>
-        <Link to="/app/settings">Settingsksksks</Link>
+        <Link to="/app/settings">Settings</Link>
       </NavMenu>
       <Outlet />
     </AppProvider>

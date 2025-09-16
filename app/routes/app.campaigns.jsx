@@ -338,8 +338,6 @@ export default function Campaigns() {
           primary
           icon={PlusIcon}
           onClick={() => {
-            console.log('Create Campaign button clicked');
-            console.log('Attempting to navigate to /app/campaigns/new');
             navigate('/app/campaigns/new');
           }}
         >
