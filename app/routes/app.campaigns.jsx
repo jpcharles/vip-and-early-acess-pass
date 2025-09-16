@@ -47,8 +47,6 @@ export const loader = async ({ request }) => {
   const page = parseInt(url.searchParams.get("page") || "1");
   const limit = parseInt(url.searchParams.get("limit") || "10");
   const search = url.searchParams.get("search") || "";
-  const status = url.searchParams.get("status") || "all";
-
   const skip = (page - 1) * limit;
 
   // Build where clause
@@ -59,9 +57,6 @@ export const loader = async ({ request }) => {
         { name: { contains: search, mode: "insensitive" } },
         { description: { contains: search, mode: "insensitive" } },
       ],
-    }),
-    ...(status !== "all" && {
-      isActive: status === "active",
     }),
   };
 
@@ -91,7 +86,6 @@ export const loader = async ({ request }) => {
     },
     filters: {
       search,
-      status,
     },
   });
 };
@@ -225,7 +219,6 @@ export default function Campaigns() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingCampaign, setEditingCampaign] = useState(null);
   const [searchValue, setSearchValue] = useState(filters.search);
-  const [statusFilter, setStatusFilter] = useState(filters.status);
   const [sortValue, setSortValue] = useState("createdAt_desc");
   const [toastMessage, setToastMessage] = useState("");
   
@@ -326,16 +319,6 @@ export default function Campaigns() {
     navigate(url.pathname + url.search);
   };
 
-  const handleStatusFilterChange = (value) => {
-    setStatusFilter(value);
-    const url = new URL(window.location);
-    if (value !== "all") {
-      url.searchParams.set("status", value);
-    } else {
-      url.searchParams.delete("status");
-    }
-    navigate(url.pathname + url.search);
-  };
 
   // Get access type display info
   const getAccessTypeInfo = (accessType) => {
@@ -463,16 +446,6 @@ export default function Campaigns() {
                     onChange={handleSearchChange}
                     prefix={<Icon source={SearchIcon} />}
                     clearButton
-                  />
-                  <Select
-                    label="Status"
-                    options={[
-                      { label: "All", value: "all" },
-                      { label: "Active", value: "active" },
-                      { label: "Inactive", value: "inactive" },
-                    ]}
-                    value={statusFilter}
-                    onChange={handleStatusFilterChange}
                   />
                 </InlineStack>
               </InlineStack>

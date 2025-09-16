@@ -105,7 +105,7 @@ export default function Index() {
                   <Button url="/app/campaigns/new" primary>
                     Create New Campaign
                   </Button>
-                  <Button url="/app/campaigns" variant="plain">
+                  <Button url="/app/campaigns" primary>
                     View All Campaigns
                   </Button>
                 </InlineStack>
