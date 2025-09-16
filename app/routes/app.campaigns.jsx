@@ -333,7 +333,26 @@ export default function Campaigns() {
 
   return (
     <Page>
-      <TitleBar title="Campaigns" />
+      <TitleBar title="Early Access Campaigns">
+        {/* <Button
+          primary
+          icon={PlusIcon}
+          onClick={() => {
+            console.log('TitleBar Create Campaign button clicked');
+            console.log('Attempting to navigate to /app/campaigns/new');
+            try {
+              navigate('/app/campaigns/new');
+            } catch (error) {
+              console.error('Navigation error:', error);
+              // Fallback to window location
+              window.location.href = '/app/campaigns/new';
+            }
+          }}
+        >
+          Create Campaign
+        </Button> */}
+      </TitleBar>
+
       <Layout>
         <Layout.Section>
           <Card>
@@ -358,8 +377,14 @@ export default function Campaigns() {
                 >
                   <p>Create early access campaigns to give VIP customers exclusive access to your products.</p>
                   <Box paddingBlockStart="400">
-                    <Link to="/app/campaigns/new">
-                      <Button primary>
+                    <Link url="/app/campaigns/new" removeUnderline>
+                      <Button
+                        primary
+                        // onClick={() => {
+                        //   navigate('/app/campaigns/new');
+
+                        // }}
+                      >
                         Create Campaign
                       </Button>
                     </Link>
