@@ -334,7 +334,7 @@ export default function Campaigns() {
   return (
     <Page>
       <TitleBar title="Early Access Campaigns">
-        {/* <Button
+        <Button
           primary
           icon={PlusIcon}
           onClick={() => {
@@ -350,7 +350,7 @@ export default function Campaigns() {
           }}
         >
           Create Campaign
-        </Button> */}
+        </Button>
       </TitleBar>
 
       <Layout>
