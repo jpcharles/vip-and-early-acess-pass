@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import { useLoaderData, useFetcher, useNavigate } from "@remix-run/react";
+import { Link, useLoaderData, useFetcher, useNavigate } from "@remix-run/react";
+
 import {
   Page,
   Layout,
