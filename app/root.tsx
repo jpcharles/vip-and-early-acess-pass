@@ -6,13 +6,9 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import { AppProvider } from "@shopify/polaris";
-import en from "@shopify/polaris/locales/en.json";
-import "@shopify/polaris/build/esm/styles.css";
-
 export default function App() {
   return (
-    <html lang="en">
+    <html>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -25,10 +21,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <AppProvider i18n={en}>
-          <Outlet /> {/* Polaris components now work inside here */}
-        </AppProvider>
-
+        <Outlet />
         <ScrollRestoration />
         <Scripts />
       </body>

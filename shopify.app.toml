@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "01c3c3966d1c1b7be9912e48b9dfca92"
-name = "vipearlybrand"
+client_id = "0523ead94506f19b7e4e33a102bc4278"
+name = "VipBrand"
 application_url = "https://example.com"
 embedded = true
 

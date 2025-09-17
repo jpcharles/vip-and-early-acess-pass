@@ -1,5 +1,5 @@
 {
-  "name": "vipuser",
+  "name": "vip-brand",
   "private": true,
   "scripts": {
     "build": "remix vite:build",
@@ -33,10 +33,6 @@
     "@shopify/polaris": "^12.0.0",
     "@shopify/shopify-app-remix": "^3.7.0",
     "@shopify/shopify-app-session-storage-prisma": "^6.0.0",
-    "@types/bcryptjs": "^2.4.6",
-    "@types/crypto-js": "^4.2.2",
-    "bcryptjs": "^3.0.2",
-    "crypto-js": "^4.2.0",
     "isbot": "^5.1.0",
     "prisma": "^6.2.1",
     "react": "^18.2.0",
@@ -48,7 +44,7 @@
     "@remix-run/route-config": "^2.16.1",
     "@shopify/api-codegen-preset": "^1.1.1",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.18.4",
+    "@types/node": "^22.2.0",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
     "eslint": "^8.42.0",
@@ -77,5 +73,5 @@
     "minimatch": "9.0.5",
     "vite": "^6.2.2"
   },
-  "author": "Administrator"
+  "author": "odmin"
 }
